@@ -1,0 +1,138 @@
+.container{
+h1 {
+    color: rgb(182, 29, 2);
+    text-align: center;
+    }
+
+p {
+    font-family: 'Times New Roman', Times, serif;
+    text-align: justify;
+    text-indent: 30px;
+    font-size: 18px;
+    }
+li{
+    font-size: 18px;
+}
+}
+
+form{
+    width: 300px;
+    margin: 50px auto;
+    padding: 75px;
+    border: 2px solid #c50a00;
+    border-radius: 75px;
+    background-color: #ffda06;
+    text-align: center;
+}
+
+.NasiGoreng{
+    border: 2px;
+    border-radius: 50px;
+    display: block;
+    margin: 0 auto;
+}
+
+.Nama{
+    width: 100%;
+    padding: 5px;
+}
+
+.Waktu{
+    font-size: 150%;
+    width: 100%;
+    padding: 5px;
+}
+
+.PesananJumlah{
+    width: 100%;
+    padding: 5px;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+    font-family: Arial, sans-serif;
+    text-transform: capitalize;
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+    display: inline-block;
+}
+
+a:hover{
+    background-color: rgb(162, 98, 2);
+    border-radius: 5px;
+}
+
+.Kirim{
+    font-size: 25px;
+}
+
+th{
+    background-color: rgb(182, 29, 2);
+    color: white;
+}
+
+tr:hover{
+    background-color: yellow;
+    color: black;
+}
+
+.JudulTabel{
+    font-size: 40px;
+}
+
+.Login{
+    font-size: 20px;
+    text-align: center;;
+    padding: 10px;
+    border: 2px solid #c50a00;
+    border-radius: 10px;
+    background-color: #ffda06;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+.username, .password{
+    margin: 10px;
+    padding: 10px;
+    font-size: 18px;
+}
+}
+
+.SiapPesan{
+    max-width: 400px;
+    margin: 100px auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,07);
+    padding: 2rem;
+    text-align: center;
+}
+
+.Feedback{
+    max-width: 800px;
+    margin: 100px auto;
+    background: #ffda06;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,07);
+    padding: 2rem;
+    text-align: center;
+
+    .NamaFeedback{
+        width: 95%;
+        padding: 5px;
+    }
+}
+
+.btn{
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    background-color: #c50a00;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.btn:hover{
+    background-color: #570400;
+}

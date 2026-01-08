@@ -1,0 +1,321 @@
+/* ========================
+   VARIABLES & RESET
+   ======================== */
+:root {
+    /* Palet Warna Tema Gambar */
+    --bg-dark: #54524A;
+    --accent-wave: #D6D2CA;
+    --bg-white: #FDFCF8;
+    --text-dark: #2D2D2A;
+    --text-gray: #888886;
+    --border-light: #EBEBEB;
+    --primary-btn: #2D2D2A;
+    --radius-md: 16px;
+    --font-main: 'Manrope', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: var(--bg-dark);
+    font-family: var(--font-main);
+    color: var(--text-dark);
+    height: 100vh;
+    overflow: hidden; /* Mencegah scroll di body */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ========================
+   DEKORASI WAVE
+   ======================== */
+.bg-decoration {
+    position: absolute;
+    top: -50%;
+    left: 20%;
+    width: 600px;
+    height: 200%;
+    background: var(--accent-wave);
+    border-radius: 50%;
+    transform: rotate(25deg);
+    z-index: 0;
+    opacity: 0.8;
+}
+
+/* ========================
+   KIOSK LAYOUT CONTAINER
+   ======================== */
+.kiosk-wrapper {
+    position: relative;
+    z-index: 10;
+    background-color: var(--bg-white);
+    width: 95vw;
+    height: 90vh;
+    border-radius: 24px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.3);
+    display: flex;
+    overflow: hidden;
+}
+
+/* 1. SIDEBAR (NAVIGASI) */
+.sidebar {
+    width: 100px;
+    background-color: #FAFAFA;
+    border-right: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 0;
+    justify-content: space-between;
+}
+
+.logo-box {
+    width: 40px;
+    height: 40px;
+    background: var(--text-dark);
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+
+.brand { 
+    text-align: center; 
+    font-weight: 800; 
+}
+
+.menu-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.cat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-gray);
+    gap: 5px;
+    font-size: 0.75rem;
+    transition: 0.3s;
+}
+
+.cat-item i {
+    font-size: 1.8rem;
+}
+
+.cat-item.active, .cat-item:hover {
+    color: var(--text-dark);
+    font-weight: 700;
+}
+
+/* 2. MAIN CONTENT (MENU GRID) */
+.menu-content {
+    flex: 1; /* Mengambil sisa ruang */
+    padding: 40px;
+    overflow-y: auto; /* Scrollable jika menu banyak */
+}
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.content-header h1 { font-size: 2rem; }
+.content-header p { color: var(--text-gray); }
+
+.search-bar {
+    background: #fff;
+    border: 1px solid var(--border-light);
+    padding: 10px 15px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 250px;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    font-family: inherit;
+    width: 100%;
+}
+
+/* GRID MENU */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.product-card {
+    background: #fff;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 15px;
+    transition: 0.3s;
+}
+
+.product-card:hover {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border-color: var(--text-dark);
+}
+
+.img-container {
+    height: 140px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    background: #eee;
+}
+
+.img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-details h3 { font-size: 1rem; margin-bottom: 5px; }
+.desc { font-size: 0.8rem; color: var(--text-gray); margin-bottom: 15px; }
+
+.price-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price { font-weight: 800; font-size: 1.1rem; }
+
+.btn-add {
+    background: var(--primary-btn);
+    color: white;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+
+.btn-add:hover { transform: scale(1.1); }
+
+/* 3. CART PANEL (KANAN) */
+.cart-panel {
+    width: 320px;
+    background: #fff;
+    border-left: 1px solid var(--border-light);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.badge {
+    background: #F2F2F2;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.cart-items {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cart-item {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.item-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.item-img img { width: 100%; height: 100%; object-fit: cover; }
+
+.item-info { flex: 1; }
+.item-info h4 { font-size: 0.9rem; margin-bottom: 2px; }
+.item-price { font-size: 0.85rem; color: var(--text-gray); }
+
+.qty-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #F8F8F8;
+    padding: 4px 8px;
+    border-radius: 8px;
+}
+
+.qty-control button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.qty-control span { font-size: 0.9rem; font-weight: 600; }
+
+/* FOOTER CART */
+.cart-footer {
+    margin-top: 20px;
+}
+
+.summary .row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: var(--text-gray);
+}
+
+.summary .total {
+    color: var(--text-dark);
+    font-weight: 800;
+    font-size: 1.2rem;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    border-top: 1px dashed var(--border-light);
+    padding-top: 15px;
+}
+
+.btn-checkout {
+    width: 100%;
+    background: var(--primary-btn);
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-checkout:hover {
+    background: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
