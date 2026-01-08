@@ -1,3 +1,10 @@
+<?php
+$conn = mysqli_connect("localhost", "root", "", "db_kiosk");
+
+// Ambil semua feedback dari database, urutkan dari yang terbaru
+$feedbacks = mysqli_query($conn, "SELECT * FROM feedback ORDER BY created_at DESC");
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -44,7 +51,7 @@
                         <div class="input-group">
                             <label>Rating Kepuasan</label>
                             <div class="star-rating">
-                                <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Sempurna"></label>
+                                <input type="radio" id="star5" name="rating" value="5" required /><label for="star5" title="Sempurna"></label>
                                 <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Bagus"></label>
                                 <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Biasa"></label>
                                 <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kurang"></label>
@@ -65,65 +72,38 @@
             <section class="reviews-list">
                 <h3>Apa Kata Mereka?</h3>
                 
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="user-info">
-                            <div class="avatar">Z</div>
-                            <div>
-                                <h4>Zeneo Aiman</h4>
-                                <span class="date">2 Jam yang lalu</span>
+                <?php if (mysqli_num_rows($feedbacks) > 0): ?>
+                    <?php while($row = mysqli_fetch_assoc($feedbacks)): ?>
+                        
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="user-info">
+                                    <div class="avatar"><?= substr($row['customer_name'], 0, 1) ?></div>
+                                    <div>
+                                        <h4><?= htmlspecialchars($row['customer_name']) ?></h4>
+                                        <span class="date"><?= date('d M Y, H:i', strtotime($row['created_at'])) ?></span>
+                                    </div>
+                                </div>
+                                <div class="stars-display">
+                                    <?php
+                                    // Loop untuk menampilkan bintang sesuai rating
+                                    for ($i = 1; $i <= 5; $i++) {
+                                        if ($i <= $row['rating']) {
+                                            echo '<i class="ph-fill ph-star"></i>';
+                                        } else {
+                                            echo '<i class="ph ph-star"></i>'; // Bintang kosong
+                                        }
+                                    }
+                                    ?>
+                                </div>
                             </div>
+                            <p class="review-text">"<?= htmlspecialchars($row['comment']) ?>"</p>
                         </div>
-                        <div class="stars-display">
-                            <i class="ph-fill ph-star"></i>
-                            <i class="ph-fill ph-star"></i>
-                            <i class="ph-fill ph-star"></i>
-                            <i class="ph-fill ph-star"></i>
-                            <i class="ph-fill ph-star"></i>
-                        </div>
-                    </div>
-                    <p class="review-text">"Nasgor Kambingnya juara! Dagingnya empuk banget dan gak bau prengus. Rempahnya kerasa banget."</p>
-                </div>
 
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="user-info">
-                            <div class="avatar">I</div>
-                            <div>
-                                <h4>Ivon Fadilah</h4>
-                                <span class="date">Kemarin</span>
-                            </div>
-                        </div>
-                        <div class="stars-display">
-                            <i class="ph-fill ph-star"></i>
-                            <i class="ph-fill ph-star"></i>
-                            <i class="ph-fill ph-star"></i>
-                            <i class="ph-fill ph-star"></i>
-                            <i class="ph ph-star"></i>
-                        </div>
-                    </div>
-                    <p class="review-text">"Pelayanan cepat dan ramah. Suka banget sama Es Teh Solonya, wangi melatinya autentik."</p>
-                </div>
-
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="user-info">
-                            <div class="avatar">B</div>
-                            <div>
-                                <h4>Bagus Setiawan</h4>
-                                <span class="date">3 Hari lalu</span>
-                            </div>
-                        </div>
-                        <div class="stars-display">
-                            <i class="ph-fill ph-star"></i>
-                            <i class="ph-fill ph-star"></i>
-                            <i class="ph-fill ph-star"></i>
-                            <i class="ph-fill ph-star"></i>
-                            <i class="ph-fill ph-star"></i>
-                        </div>
-                    </div>
-                    <p class="review-text">"Nasgor Spesialnya porsi kuli tapi rasa bintang lima. Worth it banget!"</p>
-                </div>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <p style="text-align:center; color:#888;">Belum ada ulasan. Jadilah yang pertama!</p>
+                <?php endif; ?>
 
             </section>
         </div>
