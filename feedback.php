@@ -1,5 +1,5 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "", "db_kiosk");
+$conn = mysqli_connect("sql100.byetcluster.xyz", "alcy_40850935", "BMwCgSa9B2iBMDl", "alcy_40850935_db_kiosk");
 
 // Ambil semua feedback dari database, urutkan dari yang terbaru
 $feedbacks = mysqli_query($conn, "SELECT * FROM feedback ORDER BY created_at DESC");
@@ -22,11 +22,12 @@ $feedbacks = mysqli_query($conn, "SELECT * FROM feedback ORDER BY created_at DES
     <div class="paper-container">
         
         <nav>
-            <a href="index.html" class="logo">K5.FEEDBACK</a>
+            <a href="index.php" class="logo">K5.FEEDBACK</a>
             <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="menu.html">Menu</a>
-                <a href="#" class="active">Feedback</a>
+                <a href="index.php">Home</a>
+                <a href="menu.php">Menu</a>
+                <a href="antrian.php">Antrian</a>
+                <a href="feedback.php" class="active">Feedback</a>
             </div>
         </nav>
 

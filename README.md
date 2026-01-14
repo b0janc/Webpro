@@ -128,7 +128,7 @@ Webpro/
 ├── checkout.php          # Proses Checkout
 ├── display.php           # Halaman Pemesanan (Kiosk)
 ├── feedback.php          # Halaman Feedback User
-├── index.html            # Landing Page
+├── index.php             # Landing Page
 ├── login.php             # Login Page
 ├── submit_feedback.php   # Logika submit ulasan
 └── README.md             # Dokumentasi Project

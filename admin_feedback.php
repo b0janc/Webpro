@@ -5,7 +5,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
     exit;
 }
 
-$conn = mysqli_connect("localhost", "root", "", "db_kiosk");
+$conn = mysqli_connect("sql100.byetcluster.xyz", "alcy_40850935", "BMwCgSa9B2iBMDl", "alcy_40850935_db_kiosk");
+
 
 // Logic Hapus Feedback (Opsional)
 if (isset($_GET['delete'])) {

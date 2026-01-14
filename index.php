@@ -1,3 +1,17 @@
+<?php
+
+$conn = mysqli_connect("sql100.byetcluster.xyz", "alcy_40850935", "BMwCgSa9B2iBMDl", "alcy_40850935_db_kiosk");
+
+// Cek koneksi
+if (!$conn) {
+    die("Koneksi gagal: " . mysqli_connect_error());
+}
+
+// 2. AMBIL DATA DARI DATABASE (Misal kita ambil 3 produk pertama untuk ditampilkan)
+$query = "SELECT * FROM products LIMIT 3";
+$result = mysqli_query($conn, $query);
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -15,9 +29,11 @@
         <nav>
             <a href="#" class="logo">NASGOR.NGAWI</a>
             <div class="nav-links">
-                <a href="menu.html">Menu</a>
+                <a href="menu.php">Menu</a>
+                <a href="antrian.php">Antrian</a>
                 <a href="biodata.html">Tentang</a>
-                <a href="checkout.php" class="btn-contact">Pesan</a>
+                <a href="feedback.php">Feedback</a>
+                <a href="form.php" class="btn-contact">Pesan</a>
             </div>
         </nav>
 
@@ -39,38 +55,34 @@
             </div>
 
             <div class="grid-container">
-                <div class="grid-item">
-                    <div class="image-box">
-                        <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?q=80&w=800&auto=format&fit=crop" alt="Nasgor Jawa">
-                    </div>
-                    <div class="text-box">
-                        <h3>Nasgor Jawa</h3>
-                        <p class="desc">Manis gurih, ayam kampung, acar segar.</p>
-                        <span class="price">IDR 25K</span>
-                    </div>
-                </div>
+                
+                <?php 
+                // 3. LOOPING DATA (Foreach)
+                // Kode ini akan mengulang <div> grid-item sebanyak jumlah data di database
+                if (mysqli_num_rows($result) > 0) {
+                    while($row = mysqli_fetch_assoc($result)) { 
+                ?>
 
                 <div class="grid-item">
                     <div class="image-box">
-                        <img src="https://images.unsplash.com/photo-1626804475297-411dbe9175d6?q=80&w=800&auto=format&fit=crop" alt="Nasgor Seafood">
+                        <img src="<?= $row['img']; ?>" alt="<?= $row['name']; ?>">
                     </div>
                     <div class="text-box">
-                        <h3>Seafood Platter</h3>
-                        <p class="desc">Udang galah, cumi ring, aroma smokey.</p>
-                        <span class="price">IDR 32K</span>
+                        <h3><?= $row['name']; ?></h3>
+                        
+                        <p class="desc"><?= $row['description']; ?></p>
+                        
+                        <span class="price">IDR <?= number_format($row['price'] / 1000, 0); ?>K</span>
                     </div>
                 </div>
 
-                <div class="grid-item">
-                    <div class="image-box">
-                        <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?q=80&w=800&auto=format&fit=crop" alt="Nasgor Kambing">
-                    </div>
-                    <div class="text-box">
-                        <h3>Lamb Special</h3>
-                        <p class="desc">Daging kambing muda, rempah kari arabian.</p>
-                        <span class="price">IDR 35K</span>
-                    </div>
-                </div>
+                <?php 
+                    } 
+                } else {
+                    echo "<p>Belum ada menu yang tersedia.</p>";
+                }
+                ?>
+
             </div>
         </section>
 

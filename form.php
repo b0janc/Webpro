@@ -4,12 +4,7 @@ session_start(); // Mulai session untuk menyimpan keranjang belanja
 // ==========================================
 // 1. KONEKSI DATABASE
 // ==========================================
-$host = "localhost";
-$user = "root";
-$pass = "";     // Sesuaikan password database Anda
-$db   = "db_kiosk";
-
-$conn = mysqli_connect($host, $user, $pass, $db);
+$conn = mysqli_connect("sql100.byetcluster.xyz", "alcy_40850935", "BMwCgSa9B2iBMDl", "alcy_40850935_db_kiosk");
 
 if (!$conn) {
     die("Koneksi gagal: " . mysqli_connect_error());
@@ -96,13 +91,12 @@ $stmt->bind_param("s", $active_cat);
 $stmt->execute();
 $products_result = $stmt->get_result();
 
-// Hitung Total Keranjang (TANPA PAJAK)
+// Hitung Total Keranjang
 $subtotal = 0;
 foreach ($_SESSION['cart'] as $item) {
     $subtotal += ($item['price'] * $item['qty']);
 }
-// $tax = $subtotal * 0.1; // <-- Dihapus
-$total = $subtotal; // Total sekarang sama dengan subtotal
+$total = $subtotal;
 ?>
 
 <!DOCTYPE html>
@@ -114,6 +108,42 @@ $total = $subtotal; // Total sekarang sama dengan subtotal
     <link rel="stylesheet" href="css/form.css"> 
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <style>
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Manrope', sans-serif;
+            font-size: 14px;
+            background: #f9f9f9;
+            box-sizing: border-box; /* Agar padding tidak merusak lebar */
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: #333;
+            background: #fff;
+        }
+        /* Mengubah tombol link jadi tombol submit asli */
+        button.btn-checkout {
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            font-family: 'Manrope', sans-serif;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
 
@@ -240,10 +270,42 @@ $total = $subtotal; // Total sekarang sama dengan subtotal
                         <span><?= formatPrice($total) ?></span>
                     </div>
                 </div>
-                <a href="checkout.php" class="btn-checkout" style="display:block; text-align:center; text-decoration:none;">Bayar Sekarang</a>
+
+                <form action="checkout.php" method="POST" id="checkoutForm">
+                    
+                    <div class="input-group">
+                        <label for="customer_name">Nama Pemesan</label>
+                        <input type="text" id="customer_name" name="customer_name" placeholder="Ketik nama anda..." required autocomplete="off">
+                    </div>
+
+                    <button type="submit" class="btn-checkout">Bayar Sekarang</button>
+                </form>
+
             </div>
         </aside>
 
     </div>
+
+    <script>
+        // 1. Saat halaman selesai dimuat, cek apakah ada nama yang tersimpan
+        document.addEventListener("DOMContentLoaded", function() {
+            var savedName = localStorage.getItem("customerName");
+            if (savedName) {
+                // Jika ada, isi kembali kolom input
+                document.getElementById("customer_name").value = savedName;
+            }
+        });
+
+        // 2. Setiap kali user mengetik, simpan hurufnya ke memori browser
+        document.getElementById("customer_name").addEventListener("input", function() {
+            localStorage.setItem("customerName", this.value);
+        });
+
+        // 3. (Opsional) Reset nama setelah tombol bayar ditekan agar bersih untuk pelanggan berikutnya
+        document.getElementById("checkoutForm").addEventListener("submit", function() {
+            // localStorage.removeItem("customerName"); // Uncomment baris ini jika ingin auto-reset
+        });
+    </script>
+
 </body>
 </html>
